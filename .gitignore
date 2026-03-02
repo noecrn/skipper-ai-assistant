@@ -1,12 +1,15 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
+# Environments
 .venv/
 env/
 venv/
 ENV/
 
+# Data and Models
 data/raw/
 data/processed/
 models/*.json
@@ -14,12 +17,16 @@ models/*.bin
 models/*.model
 models/*.pkl
 
+# Local LLM weights
 llm_weights/
 
+# macOS specific
 .DS_Store
 
+# Logs and CLI output
 logs/
 results/
 *.log
 
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints
