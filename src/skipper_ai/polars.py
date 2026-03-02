@@ -7,19 +7,16 @@ from scipy.interpolate import LinearNDInterpolator
 class PolarManager:
     def __init__(self, polar_path):
         """
-        Loads Class40 polar data in the standard format: TWS;TWA;BoatSpeed.
+        Loads Class40 polar data in the standard format: tws,sail_id,twa,boat_speed.
         """
         # Load the polar file
-        df = pd.read_csv(polar_path, sep=';')
+        df = pd.read_csv(polar_path)
 
         # Store the TWS and TWA values for interpolation
         self.points = df[['tws', 'twa']].values
-        self.speeds = df['speed'].values
+        self.speeds = df['boat_speed'].values
 
-        # Create a matrix of speeds with TWA as rows and TWS as columns
-        matrix = df.pivot(index='tws', columns='twa', values='speed').values
-
-        # Create an interpolation function
+        # Create an interpolation function for the polar data
         self.interp_func = LinearNDInterpolator(self.points, self.speeds)
 
     def get_expected_speed(self, tws, twa):

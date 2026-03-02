@@ -1,4 +1,4 @@
-tws;twa;boat_speed
+tws,sail_id,twa,boat_speed
 0,1,0,0.00
 0,1,1,0.00
 0,1,2,0.00
