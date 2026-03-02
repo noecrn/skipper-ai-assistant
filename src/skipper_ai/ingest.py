@@ -6,6 +6,9 @@ import gpxpy
 from skipper_ai.polars import PolarManager
 
 def process_gpx(gpx_path, polat_model_path):
+	"""
+	Processes a GPX file to extract sailing performance data and calculates performance ratios based on a polar model.
+	"""
 	# Initialize PolarManager with the provided polar model path
 	pm = PolarManager(polat_model_path)
 
