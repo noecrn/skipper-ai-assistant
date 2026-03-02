@@ -17,28 +17,44 @@ def process_gpx(gpx_path, polat_model_path):
 	data = []
 	for track in gpx.tracks:
 		for segment in track.segments:
-			for point in segment.points:
+			# Iterate through the points in the segment to extract timestamp, latitude, longitude, and calculate boat speed
+			for i in range(1, len(segment.points)):
+				p1 = segment.points[i-1]
+				p2 = segment.points[i]
+		
+				# Calculate distance in meters between p1 and p2
+				distance = p2.distance_2d(p1)
+		
+				# Calculate time difference in seconds between p1 and p2
+				time_delta = (p2.time - p1.time).total_seconds()
+		
+				if time_delta > 0:
+					# Convert speed from m/s to knots (1 m/s = 1.94384 knots)
+					speed_kts = (distance / time_delta) * 1.94384
+				else:
+					continue  # Skip if time difference is zero to avoid division by zero
+		
 				data.append({
-					'timestamp': point.time,
-					'lat': point.latitude,
-					'lon': point.longitude,
-					'boat_speed': point.speed if point.speed else 0.0
-				})
+                    'timestamp': p2.time,
+                    'lat': p2.latitude,
+                    'lon': p2.longitude,
+                    'boat_speed': speed_kts, # Vitesse calculée
+                    'tws': 15.0, # Placeholder POC
+                    'twa': 45.0, # Placeholder POC
+                    'heel': 20.0, # Placeholder POC
+                    'sail_id': 'J1' # Placeholder POC
+                })
 
-	# Convert the extracted data into a DataFrame
 	df = pd.DataFrame(data)
 
-	# For simplicity, we will use fixed values for TWS and TWA. In a real application, these would be derived from the data or provided as input.
-	df['tws'] = 15.0
-	df['twa'] = 45.0
-	df['sail_mode'] = 'J1'
-
 	# Calculate expected speed using the polar model
-	df['expected_speed'] = df.apply(lambda row: pm.get_expected_speed(row['tws'], row['twa']), axis=1)
+	df['expected_speed'] = df.apply(
+		lambda x: pm.get_expected_speed(x['tws'], x['twa']), axis=1
+	)
 
-	# Calculate expected speed using the polar model
+	# Calculate performance ratio (actual speed / expected speed)
 	df['performance_ratio'] = df['boat_speed'] / df['expected_speed'].replace(0, np.nan)
-	df['performance_ratio'] = df['performance_ratio'].fillna(0.0)
+	df.fillna(0, inplace=True)
 
 	return df
 
