@@ -1,0 +1,15 @@
+# Data Processing
+pandas
+numpy
+scipy
+
+# Machine Learning & Explainability
+xgboost
+shap
+
+# CLI & Local LLM
+click
+ollama
+
+# Utilities
+gpxpy
