@@ -1,7 +1,21 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build-meta"
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "skipper-ai"
 version = "0.1.0"
+description = "AI-powered sailing performance assistant"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scipy",
+    "xgboost",
+    "joblib",
+    "shap",
+    "gpxpy",
+    "matplotlib"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
