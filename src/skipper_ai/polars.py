@@ -12,11 +12,12 @@ class PolarManager:
         # Load the polar file
         df = pd.read_csv(polar_path)
 
-        # Store the TWS and TWA values for interpolation
-        self.points = df[['tws', 'twa']].values
-        self.speeds = df['boat_speed'].values
+        # Group by TWS and TWA to get the maximum boat speed for each combination
+        df_optimal = df.groupby(['tws', 'twa'])['boat_speed'].max().reset_index()
 
-        # Create an interpolation function for the polar data
+        # Prepare the interpolation function
+        self.points = df_optimal[['tws', 'twa']].values
+        self.speeds = df_optimal['boat_speed'].values
         self.interp_func = LinearNDInterpolator(self.points, self.speeds)
 
     def get_expected_speed(self, tws, twa):
