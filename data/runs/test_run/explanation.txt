@@ -1,0 +1,2 @@
+The overall performance was 93.7% of the polar. The boat was performing very close to the polar. Keep up the good work! 
+Note: This is a fallback explanation because Ollama (model: llama3.2:3b) is not accessible.

@@ -4,6 +4,14 @@ import pandas as pd
 import numpy as np
 from skipper_ai.polars import PolarManager
 
+SAIL_MAPPING = {
+    'Jib': 0,
+    'Spi': 1,
+    'J1': 0,
+    'J2': 2,
+    'A3': 3,
+}
+
 def process_csv(csv_path, polar_model_path):
     """
     Processes a Virtual Regatta CSV file to calculate performance ratios.
@@ -22,6 +30,10 @@ def process_csv(csv_path, polar_model_path):
     # Calculate Performance Ratio
     df['performance_ratio'] = df['boat_speed'] / df['expected_speed'].replace(0, np.nan)
     df['performance_ratio'] = df['performance_ratio'].fillna(0.0)
+
+    # Ensure sail_id is numeric for the model
+    if 'sail_id' in df.columns:
+        df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
 
     return df
 

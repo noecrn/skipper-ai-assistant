@@ -5,6 +5,8 @@ import xgboost as xgb
 import joblib
 from sklearn.model_selection import train_test_split
 
+from skipper_ai.ingest import SAIL_MAPPING
+
 def train_model(data_path, model_output_path):
 	"""
 	Trains a machine learning model to predict sailing performance ratios based on the processed data.
@@ -12,11 +14,17 @@ def train_model(data_path, model_output_path):
 	# Load and preprocess data
 	df = pd.read_csv(data_path)
 
-	# Convert categorical variables to numeric
-	df['sail_id'] = df['sail_id'].astype('category').cat.codes
+	# Align with ingest/analyze: deterministic codes from SAIL_MAPPING (not category order)
+	if 'sail_id_numeric' not in df.columns:
+		if 'sail_id' not in df.columns:
+			raise ValueError(
+				"Training data must include 'sail_id_numeric' or 'sail_id' columns."
+			)
+		df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
 
 	# Define features and target variable
-	features = ['tws', 'twa', 'heel', 'sail_id']
+	# Features: TWS, TWA, HEEL, SAIL_ID_NUMERIC
+	features = ['tws', 'twa', 'heel', 'sail_id_numeric']
 	target = 'performance_ratio'
 
 	x = df[features]
@@ -39,4 +47,4 @@ def train_model(data_path, model_output_path):
 	print("Model trained and saved to", model_output_path)
 
 if __name__ == "__main__":
-	train_model('data/sailing_data.csv', 'models/sailing_performance_model.pkl')
+	train_model('data/processed/run_sardinia.csv', 'models/performance_model.joblib')

@@ -1,0 +1,10 @@
+pandas
+numpy
+scipy
+xgboost
+joblib
+shap
+gpxpy
+matplotlib
+click
+ollama

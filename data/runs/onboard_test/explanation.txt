@@ -1,0 +1,19 @@
+### 📊 PERFORMANCE SUMMARY
+Our average performance is at 94.1% of polar, which is within our target range. However, the average speed is 9.15 kts, under the expected 9.87 kts.
+
+### 🔍 KEY ISSUES
+• **Heel**: Our heel values are consistently at 0, indicating no heeling effect on the boat. This may suggest optimal sail trim and steering.
+• **Sail Choice**: The sail ID numeric value is 0, suggesting we should reassess our sail choice to optimize performance.
+
+### 💡 COACH'S RECOMMENDATION
+**Optimize Sail Trim/Steering and Review Sail Choice**
+
+Focus on fine-tuning the sail trim and steering to minimize any potential heeling effect. Additionally, consider re-evaluating our sail choice to find a better match for the current conditions and wind direction.
+
+Specifically, review:
+
+* **Trim Angle**: Ensure that the sail is trimmed at the optimal angle to maximize lift and reduce drag.
+* **Steering Angle**: Adjust the steering angle to match the boat's speed and direction of travel.
+* **Sail Choice Algorithm**: Consider updating our sail choice algorithm to account for changing wind conditions and optimize performance.
+
+By addressing these key areas, we can work towards improving our average speed and achieving better overall performance.

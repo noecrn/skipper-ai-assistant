@@ -1,0 +1,25 @@
+{
+    "run_id": "onboard_test",
+    "avg_performance": 0.9410137261223446,
+    "avg_expected_speed": 9.873264998741266,
+    "avg_boat_speed": 9.148127448038537,
+    "feature_importance": {
+        "tws": 0.001170385512523353,
+        "twa": 0.017481127753853798,
+        "heel": 0.0,
+        "sail_id_numeric": 0.0
+    },
+    "feature_impact": {
+        "tws": 0.0006382455467246473,
+        "twa": 0.008911693468689919,
+        "heel": 0.0,
+        "sail_id_numeric": 0.0
+    },
+    "total_rows": 100,
+    "under_performance_impact": {
+        "tws": 0.001026518759317696,
+        "twa": 0.009477745741605759,
+        "heel": 0.0,
+        "sail_id_numeric": 0.0
+    }
+}

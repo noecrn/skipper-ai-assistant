@@ -1,0 +1,2 @@
+[console_scripts]
+skipper-ai = skipper_ai.cli:cli

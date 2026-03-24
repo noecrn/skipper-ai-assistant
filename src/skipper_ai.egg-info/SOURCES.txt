@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/skipper_ai/__init__.py
+src/skipper_ai/analyze.py
+src/skipper_ai/cli.py
+src/skipper_ai/explain.py
+src/skipper_ai/generate_synthetic.py
+src/skipper_ai/ingest.py
+src/skipper_ai/polars.py
+src/skipper_ai/train.py
+src/skipper_ai.egg-info/PKG-INFO
+src/skipper_ai.egg-info/SOURCES.txt
+src/skipper_ai.egg-info/dependency_links.txt
+src/skipper_ai.egg-info/entry_points.txt
+src/skipper_ai.egg-info/requires.txt
+src/skipper_ai.egg-info/top_level.txt
+tests/test_pipeline.py

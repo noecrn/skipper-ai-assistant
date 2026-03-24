@@ -14,8 +14,13 @@ dependencies = [
     "joblib",
     "shap",
     "gpxpy",
-    "matplotlib"
+    "matplotlib",
+    "click",
+    "ollama"
 ]
+
+[project.scripts]
+skipper-ai = "skipper_ai.cli:cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]
