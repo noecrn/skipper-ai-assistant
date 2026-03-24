@@ -16,11 +16,10 @@ def train_model(data_path, model_output_path):
 
 	# Align with ingest/analyze: deterministic codes from SAIL_MAPPING (not category order)
 	if 'sail_id_numeric' not in df.columns:
-		if 'sail_id' not in df.columns:
-			raise ValueError(
-				"Training data must include 'sail_id_numeric' or 'sail_id' columns."
-			)
-		df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
+		if 'sail_id' in df.columns:
+			df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
+		else:
+			df['sail_id_numeric'] = -1
 
 	# Define features and target variable
 	# Features: TWS, TWA, HEEL, SAIL_ID_NUMERIC

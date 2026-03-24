@@ -31,9 +31,11 @@ def process_csv(csv_path, polar_model_path):
     df['performance_ratio'] = df['boat_speed'] / df['expected_speed'].replace(0, np.nan)
     df['performance_ratio'] = df['performance_ratio'].fillna(0.0)
 
-    # Ensure sail_id is numeric for the model
+    # Model always expects sail_id_numeric (-1 = unknown / no sail column in source)
     if 'sail_id' in df.columns:
         df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
+    else:
+        df['sail_id_numeric'] = -1
 
     return df
 

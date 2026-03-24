@@ -16,10 +16,12 @@ def run_analysis(data_path, model_path='models/performance_model.joblib'):
     # Load data
     df = pd.read_csv(data_path)
     
-    # Check for sail_id_numeric, if not present map it
     from skipper_ai.ingest import SAIL_MAPPING
-    if 'sail_id_numeric' not in df.columns and 'sail_id' in df.columns:
-        df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
+    if 'sail_id_numeric' not in df.columns:
+        if 'sail_id' in df.columns:
+            df['sail_id_numeric'] = df['sail_id'].map(SAIL_MAPPING).fillna(-1).astype(int)
+        else:
+            df['sail_id_numeric'] = -1
     
     # Define features (must match train.py)
     features = ['tws', 'twa', 'heel', 'sail_id_numeric']
