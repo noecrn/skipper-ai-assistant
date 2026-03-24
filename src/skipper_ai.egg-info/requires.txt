@@ -8,3 +8,4 @@ gpxpy
 matplotlib
 click
 ollama
+markdown

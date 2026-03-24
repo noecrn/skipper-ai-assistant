@@ -16,7 +16,8 @@ dependencies = [
     "gpxpy",
     "matplotlib",
     "click",
-    "ollama"
+    "ollama",
+    "markdown"
 ]
 
 [project.scripts]

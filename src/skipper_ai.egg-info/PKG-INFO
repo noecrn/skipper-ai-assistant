@@ -12,3 +12,4 @@ Requires-Dist: gpxpy
 Requires-Dist: matplotlib
 Requires-Dist: click
 Requires-Dist: ollama
+Requires-Dist: markdown

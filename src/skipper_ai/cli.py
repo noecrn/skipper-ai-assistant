@@ -96,5 +96,56 @@ def ask(run_id, question):
     click.echo("\n--- Answer ---\n")
     click.echo(answer)
 
+@cli.command("report")
+@click.argument("run_id")
+@click.option(
+    "--open",
+    "open_browser",
+    is_flag=True,
+    help="Open the report in the default browser after generation.",
+)
+@click.option(
+    "--no-explain",
+    is_flag=True,
+    help="Skip loading or generating coach advice (numbers and charts only).",
+)
+def report_cmd(run_id, open_browser, no_explain):
+    """Build an offline HTML report (charts + coach advice) for a run."""
+    import webbrowser
+
+    from skipper_ai.explain import generate_explanation
+    from skipper_ai.report import build_report
+
+    run_dir = os.path.join("data", "runs", run_id)
+    data_path = os.path.join(run_dir, "data.csv")
+    results_path = os.path.join(run_dir, "analysis.json")
+    explanation_path = os.path.join(run_dir, "explanation.txt")
+
+    if not os.path.exists(data_path):
+        click.echo(
+            f"❌ Error: Run data not found at {data_path}. Did you run 'ingest-data' first?"
+        )
+        return
+    if not os.path.exists(results_path):
+        click.echo(
+            f"❌ Error: Analysis results not found at {results_path}. Did you run 'analyze' first?"
+        )
+        return
+
+    if not no_explain and not os.path.exists(explanation_path):
+        click.echo(f"Generating explanation for run {run_id}...")
+        explanation = generate_explanation(results_path)
+        with open(explanation_path, "w", encoding="utf-8") as f:
+            f.write(explanation)
+        click.echo(f"Explanation saved to {explanation_path}")
+
+    click.echo(f"Building HTML report for run {run_id}...")
+    out_path = build_report(run_dir, no_explain=no_explain)
+    click.echo(f"✅ Report written to {out_path}")
+
+    if open_browser:
+        webbrowser.open(out_path.as_uri())
+
+
 if __name__ == '__main__':
     cli()

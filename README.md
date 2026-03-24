@@ -37,6 +37,17 @@ skipper-ai explain my_navigation
 skipper-ai ask my_navigation "Why was my performance low when upwind?"
 ```
 
+### 5. HTML report (offline)
+After ingest and analyze, build a single self-contained `report.html` (embedded charts and coach advice). If `explanation.txt` is missing, `report` will generate it (same as `explain`, requires Ollama unless the fallback applies).
+
+```bash
+skipper-ai report my_navigation
+skipper-ai report my_navigation --open
+skipper-ai report my_navigation --no-explain
+```
+
+Order: **ingest-data** → **analyze** → **report** (or run **explain** before **report** to avoid LLM work during reporting).
+
 ## Project Context
 The project focuses on **explainability**. It uses SHAP to quantify how much each factor (heel, sail choice, wind conditions) contributed to the difference between actual boat speed and the theoretical polar speed.
 
